@@ -1,0 +1,24 @@
+﻿@if(ViewBag.ErrorTitle==null)
+{
+<div class="alert alert-danger">
+    <h4>Exceptionpath: </h4>
+    <hr />
+    <p>@ViewBag.Exceptionpath</p>
+</div>
+
+<div class="alert alert-danger">
+    <h4>ExceptionMessage: </h4>
+    <hr />
+    <p>@ViewBag.ExceptionMessage</p>
+</div>
+
+<div class="alert alert-danger">
+    <h4>Exceptionpath: </h4>
+    <hr />
+    <p>@ViewBag.StackTrace</p>
+</div>
+}
+else{
+    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+    <h5 class="text-danger">@ViewBag.ErrorMessage</h5>
+}

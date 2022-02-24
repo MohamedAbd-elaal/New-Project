@@ -1,0 +1,54 @@
+﻿<!--model IEnumerable<MVC_FILE_VIEW_.Model.Employee>-->
+    @model IEnumerable<Employee>;
+
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Hello From _Layout Page";
+    
+
+}
+       @* <table>
+            <thead>
+           <tr>
+               <th>ID</th>
+               <th>Name</th>
+           </tr>
+           </thead>
+           <tbody>
+               <!--error done when run and (run and see)-->
+               @foreach(var i in Model)
+            {
+                <tr>
+                 <td>@i.Id</td>
+                   <td>@i.Name</td>
+                </tr>
+            }
+           </tbody>
+        </table>*@
+        <div class="card-deck">
+            @foreach(var i in Model)
+            {
+                <!--Dinamic add photo that we choose it and if we dont chosse it will be ( null-coalescing) value-->
+                var photopath = "~/Images/" +(i.photopath ??"img.JPG");
+                <div class="card m-3" style="min-max:18rem;max-width:30.5%;">
+                    <div class="card-header">
+                        <h3>@i.Name</h3>
+                    </div>
+                   <img class="card-img-top imageThumbnail"src=@photopath asp-append-version="true"/>
+                    <div class="card-footer text-center">
+                        @*tag helper*@
+                        <a asp-controller="home" asp-action="details2" asp-route-id="@i.Id"
+                        class="btn btn-primary m-1">View</a>
+                        @*anthoe ways for Links
+                            new{Id=i.id}=>anonemous object
+                        <a href="@Url.Action("details2","home",new{Id=i.Id})"  
+                        class="btn btn-primary">Display</a>
+                        @Html.ActionLink("View","details2","home",new{Id=i.Id});
+                        <a href="/home/details2/@i.Id" class="btn btn-primary">View</a>*@
+                        <a  class="btn btn-primary m-1" asp-action="edit" asp-controller="home" asp-route-id="@i.Id">Edit</a>
+                        <a href="#" class="btn btn-danger m-1">Delete</a>
+                    </div>
+                </div>
+            }
+        </div>

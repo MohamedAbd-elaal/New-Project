@@ -1,0 +1,20 @@
+﻿@model int
+<div class="alert alert-danger mt-1 mb-1 ">
+    <h4> 404 Error Not Found :</h4>
+    <hr />
+    <h4> Employee Wth Id: @Model not found</h4>
+</div>
+<a asp-action="IEnumerable" asp-controller="home" class="btn btn-outline-success" style="width:auto">
+    Click Here To See All List
+</a>
+
+@*anthor solution
+@model EmployeeNotFound
+<div class="alert alert-danger mt-1 mb-1 ">
+    <h4> @Model.statuscode Error Not Found :</h4>
+    <hr />
+    <h4> Employee Wth Id: @Model.id not found</h4>
+</div>
+<a asp-action="IEnumerable" asp-controller="home" class="btn btn-outline-success" style="width:auto">
+    Click Here To See All List
+</a>*@

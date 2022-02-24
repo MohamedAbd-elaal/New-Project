@@ -1,0 +1,72 @@
+﻿@model IEnumerable<IdentityRole>
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService;
+@{
+    ViewBag.Title = "List Roles";
+}
+<h1>List Roles</h1>
+@if(Model.Any())
+{
+    <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="Administration">
+        Add New Role
+    </a>
+    <hr />
+    foreach(var role in Model)
+    {
+       <div class="mb-3">
+           <div class="card-header">
+               Role Id:@role.Id
+           </div>
+          
+           <div class="card-body">
+               <h5 class="card-title">@role.Name</h5>
+           </div>
+           
+           <div class="card-footer"> 
+               
+                 <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
+                     @*claims with Ploicy Name EditRolePolicy didnot work even user (we logged in) have claims with Ploicy Name EditRolePolicy*@
+                    @*@if((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
+                    {*@
+                        <a asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id" class="btn btn-primary">Edit</a>
+                    @*}*@
+                    
+                   
+                    @* First way for delete and Confirm Delete
+                    <button type="submit" onclick="return confirm ('Are U Sure For delete: @user.UserName')" class="btn btn-danger">Delete</button>*@
+                   
+                    <span  id="ConfrmDelete_@role.Id" style="display:none">
+                        <span> Are Y sure TO delete?</span>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                         <a  class="btn btn-primary" onclick="ConfirmDelete('@role.Id',false)">No</a>
+                    </span>
+                    <span id="Delete_@role.Id">
+                        <a class="btn btn-danger" onclick="ConfirmDelete('@role.Id',true)" >Delete</a>
+                    </span>
+
+                </form>
+           </div>
+
+       </div> 
+    }
+}
+else
+{
+    <div class="">
+        <div class="card-header">
+            No Roles Created Yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use The Button To Create A Role
+            </h5>
+            <a  class="btn btn-primary" asp-action="CreateRole" asp-controller="Administration"  style="width:auto">
+                Create Role
+            </a>
+        </div>
+     </div>
+}
+@section Scripts
+{
+    <script src="~/JS/CustomScript.js"></script>
+}

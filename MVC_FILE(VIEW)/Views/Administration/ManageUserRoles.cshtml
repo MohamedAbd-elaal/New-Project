@@ -1,0 +1,37 @@
+﻿@model List<ManageUserRoles>
+@{
+    var userId = ViewBag.userId;
+}
+<form method="post">
+    <div class="row">
+        <div class="card-header">
+            <h2>Mange User Roles</h2>
+        </div>
+        <div class="card-body">
+            @for(var i=0;i<Model.Count;i++)
+            {
+                <div class="form-check m-1"> 
+                    <input hidden asp-for="@Model[i].RoleId" />
+                    <input hidden asp-for="@Model[i].RoleName" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label asp-for="@Model[i].IsSelected">@Model[i].RoleName</label>
+                </div>
+            }
+           @* we donnot use this method because roleid and rolename not unique all with the same name 
+            so we cannot put value we select to our List Of model*@
+            @*@foreach(var role in Model)
+            {
+                <div class="form-check m-1"> 
+                    <input hidden asp-for="@role.RoleId" />
+                    <input hidden asp-for="@role.RoleName" />
+                    <input asp-for="@role.IsSelected" class="form-check-input" />
+                    <label asp-for="@role.IsSelected">@role.RoleName</label>
+                </div>
+            }*@
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" style="width:auto">Update</button>
+            <a asp-action="EditUser" asp-route-id="@userId" class="btn btn-primary" style="width:auto">Cancel</a>
+        </div>
+    </div>
+</form>
